@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Form from "./components/Form";
+import Table from "./components/Table";
 
-function App() {
+const tables = [1, 2, 3];
+
+const App = () => {
+  const [order,setOrder]=useState([]);
+  const addOrderHandler=(id,price,dish,tableNo)=>{
+    setOrder((oldOrder)=>{ return [...oldOrder,{
+      id,
+      price,
+      dish,
+      tableNo
+    }]})
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Form onAddOrder={addOrderHandler} />
+      {tables.map(t=><Table key={t} orders={order} tableNo={t}/>)}
+    </>
   );
-}
+};
 
 export default App;
